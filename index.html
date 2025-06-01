@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Generador SEO con IA</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; max-width: 600px; margin: auto; }
+    textarea, input { width: 100%; padding: 10px; margin: 10px 0; }
+    button { padding: 10px 20px; }
+    #output { margin-top: 20px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🧠 Generador de Descripciones SEO</h1>
+  <p>Introduce el nombre de tu producto:</p>
+  <input type="text" id="product" placeholder="Ej: Camiseta punk oversize mujer" />
+  <button onclick="generate()">Generar descripción</button>
+  <div id="output"></div>
+
+  <script>
+    async function generate() {
+      const product = document.getElementById("product").value;
+      const output = document.getElementById("output");
+      output.textContent = "Generando...";
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product })
+      });
+      const data = await res.json();
+      output.textContent = data.result;
+    }
+  </script>
+</body>
+</html>
